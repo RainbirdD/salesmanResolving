@@ -20,30 +20,34 @@
     let canvas = document.getElementById('canvas_test');
     let ctx = canvas.getContext('2d');
 
-    function getRndInteger(min, max) { //??????? ????????
+    function getRndInteger(min, max) { //return min max value
         return Math.floor(Math.random() * (max - min + 1) ) + min;
     }
 
-    const fillArray = k => { //??????? ??????
-        if(!Number.isInteger(k)) return "????? ?????? ???? ?????";
-        if(k >= 0) {
-            let arr = [...Array(k).keys()].map(x => ++x);
-            return arr;
-        } else {
-            return "????? ?????? ???? ???????????????";
-        }
+    let city ={
+        cities1: 1,
+        cities2: 2,
+        cities3: 3,
+        cities4: 4,
+        cities5: 5,
+        cities6: 6,
+        cities7: 7,
+        cities8: 8,
+        cities9: 9,
+        cities10: 10
     }
 
-    // fillArray(50);
-    //
-    // let inputData = [fillArray(50)];
-    // console.log(inputData);
-    // (Math.floor(Math.random() * 200) + 10)
-    for (let i=0; i<fillArray(50).length; i++) { //??? ?????? ??????
+    for (let i in city) {
         ctx.beginPath();
         ctx.arc(getRndInteger(20, 280), getRndInteger(10, 140), 1, 0, 2 * Math.PI);
         ctx.stroke();
     }
+
+    // for (let i=0; i<city; i++) { //??? ?????? ??????
+    //     ctx.beginPath();
+    //     ctx.arc(getRndInteger(20, 280), getRndInteger(10, 140), 1, 0, 2 * Math.PI);
+    //     ctx.stroke();
+    // }
 
 </script>
 
