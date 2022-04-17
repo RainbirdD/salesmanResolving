@@ -40,6 +40,13 @@ public class Main {
         System.out.println("Starting city = " + result.getStartingCity());
         System.out.println("Fitness = " + result.getFitness());
         System.out.println("Genome  = " + result.getGenome());
+        //Looks like
+//        Path: 0 3 2 1 4 0
+//        Length: 199
+//        Starting city = 0
+//        Fitness = 199
+//        Genome  = [3, 2, 1, 4]
+//TODO findout how to present
     }
 }
 

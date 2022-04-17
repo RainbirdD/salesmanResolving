@@ -6,50 +6,47 @@
 
 <div class="container" style="display: flex; justify-content: space-between; margin: 0 auto;">
 
-    <canvas id="canvas_test" style="width: 500px; height: 400px; border: 1px solid"></canvas>
-
     <div id="graph_info"
          style="width: 500px; height: 400px;">
     </div>
 
 
-
 </div>
 
-<script>
-    let canvas = document.getElementById('canvas_test');
-    let ctx = canvas.getContext('2d');
+<!--<script>-->
+<!--    let canvas = document.getElementById('canvas_test');-->
+<!--    let ctx = canvas.getContext('2d');-->
 
-    function getRndInteger(min, max) { //return min max value
-        return Math.floor(Math.random() * (max - min + 1) ) + min;
-    }
+<!--    function getRndInteger(min, max) { //return min max value-->
+<!--        return Math.floor(Math.random() * (max - min + 1)) + min;-->
+<!--    }-->
 
-    let city ={
-        cities1: 1,
-        cities2: 2,
-        cities3: 3,
-        cities4: 4,
-        cities5: 5,
-        cities6: 6,
-        cities7: 7,
-        cities8: 8,
-        cities9: 9,
-        cities10: 10
-    }
+<!--    let city = {-->
+<!--        cities1: 1,-->
+<!--        cities2: 2,-->
+<!--        cities3: 3,-->
+<!--        cities4: 4,-->
+<!--        cities5: 5,-->
+<!--        cities6: 6,-->
+<!--        cities7: 7,-->
+<!--        cities8: 8,-->
+<!--        cities9: 9,-->
+<!--        cities10: 10-->
+<!--    }-->
 
-    for (let i in city) {
-        ctx.beginPath();
-        ctx.arc(getRndInteger(20, 280), getRndInteger(10, 140), 1, 0, 2 * Math.PI);
-        ctx.stroke();
-    }
+<!--    for (let i in city) {-->
+<!--        ctx.beginPath();-->
+<!--        ctx.arc(getRndInteger(20, 280), getRndInteger(10, 140), 1, 0, 2 * Math.PI);-->
+<!--        ctx.stroke();-->
+<!--    }-->
 
-    // for (let i=0; i<city; i++) { //??? ?????? ??????
-    //     ctx.beginPath();
-    //     ctx.arc(getRndInteger(20, 280), getRndInteger(10, 140), 1, 0, 2 * Math.PI);
-    //     ctx.stroke();
-    // }
+<!--    // for (let i=0; i<city; i++) { //??? ?????? ??????-->
+<!--    //     ctx.beginPath();-->
+<!--    //     ctx.arc(getRndInteger(20, 280), getRndInteger(10, 140), 1, 0, 2 * Math.PI);-->
+<!--    //     ctx.stroke();-->
+<!--    // }-->
 
-</script>
+<!--</script>-->
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -59,47 +56,8 @@
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script th:inline="javascript">
-    $(function(){
-        //     Highcharts.chart('container', {
-        //         chart: {
-        //             type: 'column'
-        //         },
-        //         title: {
-        //             text: 'Organization'
-        //         },
-        //         subtitle: {
-        //             text: 'Details'
-        //         },
-        //         xAxis: {
-        //             categories: [[${scope}]],
-        //             crosshair: true
-        //         },
-        //         yAxis: {
-        //             min: 0,
-        //             max:100,
-        //             title: {
-        //                 text: 'Scope'
-        //             }
-        //         },
-        //         tooltip: {
-        //             headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        //             pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-        //                 '<td style="padding:0"><b>{point.y:.1f} K</b></td></tr>',
-        //             footerFormat: '</table>',
-        //             shared: true,
-        //             useHTML: true
-        //         },
-        //         plotOptions: {
-        //             column: {
-        //                 pointPadding: 0.2,
-        //                 borderWidth: 0
-        //             }
-        //         },
-        //         series: [{
-        //             name: 'Time',
-        //             data: [[${time}]]
-        //         }]
-        //     });
+    $(function () {
+
         Highcharts.chart('graph_info', {
             chart: {
                 type: 'line',
@@ -110,7 +68,7 @@
             },
             xAxix: {
                 min: 0,
-                max:10,
+                max: 10,
                 title: {
                     text: 'adwawd'
                 },
@@ -119,32 +77,82 @@
 
             yAxis: {
                 min: 0,
-                max:100,
+                max: 500,
                 title: {
                     text: 'Scope'
-                }},
-            tooltip: {
-                formatter: function(){
-                    console.log(this);
                 }
             },
-            series: [{
-                name: 'Mutations',
-                data: [[${scope}]]
-            }]
+            tooltip: {
+                formatter: function () {
+                    return this.y;
+                }
+            },
+            series: [
+                // {
+                //     name: 'Fitness',
+                //     data: [[${fitnessList}]]
+                // },
+                // {
+                //     name: 'resultAll',
+                //     data: [[${resultAll}]]
+                // },
+                {
+                    name: 'resultAll',
+                    data: [[${fitnessList}]]
+                },                {
+                    name: 'resultAll',
+                    data: [[${fitnessListWithTour}]]
+                }
+                // {
+                //     name: 'Time',
+                //     data: [[${time}]]
+                // },
+                // {
+                //     name: 'Mutations',
+                //     data: [[${scope}]]
+                // },
+                // {
+                //     name: 'Time',
+                //     data: [[${time}]]
+                // },
+                // {
+                //     name: 'Mutations',
+                //     data: [[${scope}]]
+                // },
+                // {
+                //     name: 'Time',
+                //     data: [[${time}]]
+                // },
+                // {
+                //     name: 'Mutations',
+                //     data: [[${scope}]]
+                // },
+                // {
+                //     name: 'Time',
+                //     data: [[${time}]]
+                // },
+                // {
+                //     name: 'Mutations',
+                //     data: [[${scope}]]
+                // },
+                // {
+                //     name: 'Time',
+                //     data: [[${time}]]
+                // }
+            ]
         });
     });
 </script>
 
 </body>
 <head>
-    <meta charset="ISO-8859-1" />
+    <meta charset="ISO-8859-1"/>
     <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 
     <!-- Optional theme -->
     <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"/>
     <title>smp</title>
 
 </head>

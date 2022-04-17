@@ -1,9 +1,17 @@
 package com.salesman.Servises.algorhytm;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Data
+@Service
+@RequiredArgsConstructor
 public class SalesmanGenome implements Comparable {
     List<Integer> genome;
     int[][] travelPrices;

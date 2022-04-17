@@ -1,10 +1,18 @@
 package com.salesman.Servises.algorhytm;
 
+import com.salesman.Dto.ResultDTO;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+@Service
+@Data
+@RequiredArgsConstructor
 public class UberSalesmensch {
     private int generationSize;
     private int genomeSize;
@@ -26,9 +34,9 @@ public class UberSalesmensch {
         this.startingCity = startingCity;
         this.targetFitness = targetFitness;
 
-        generationSize = 5000;
+        generationSize = 100;
         reproductionSize = 200;
-        maxIterations = 1000;
+        maxIterations = 100;
         mutationRate = 0.1f;
         tournamentSize = 40;
     }
@@ -157,6 +165,28 @@ public class UberSalesmensch {
         }
         return globalBestGenome;
     }
+
+    public ResultDTO optimizeAll(){
+        List<SalesmanGenome> generation = new ArrayList<>();
+        List<SalesmanGenome> population = initialPopulation();
+        SalesmanGenome globalBestGenome = population.get(0);
+        for(int i=0; i<maxIterations; i++){
+            List<SalesmanGenome> selected = selection(population);
+            population = createGeneration(selected);
+            globalBestGenome = Collections.min(population);
+            generation.add(globalBestGenome);
+            if(globalBestGenome.getFitness() < targetFitness)
+                break;
+        }
+        ResultDTO resultDTO = new ResultDTO();
+        resultDTO.setSalesmanGenome(globalBestGenome);
+        resultDTO.setGeneration(generation);
+        return resultDTO;
+    }
+
+
+
+
 
     public void printGeneration(List<SalesmanGenome> generation ){
         for( SalesmanGenome genome : generation){
