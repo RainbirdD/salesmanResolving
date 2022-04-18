@@ -10,43 +10,11 @@
          style="width: 500px; height: 400px;">
     </div>
 
+    <div id="graph_info1"
+         style="width: 500px; height: 400px;">
+    </div>
 
 </div>
-
-<!--<script>-->
-<!--    let canvas = document.getElementById('canvas_test');-->
-<!--    let ctx = canvas.getContext('2d');-->
-
-<!--    function getRndInteger(min, max) { //return min max value-->
-<!--        return Math.floor(Math.random() * (max - min + 1)) + min;-->
-<!--    }-->
-
-<!--    let city = {-->
-<!--        cities1: 1,-->
-<!--        cities2: 2,-->
-<!--        cities3: 3,-->
-<!--        cities4: 4,-->
-<!--        cities5: 5,-->
-<!--        cities6: 6,-->
-<!--        cities7: 7,-->
-<!--        cities8: 8,-->
-<!--        cities9: 9,-->
-<!--        cities10: 10-->
-<!--    }-->
-
-<!--    for (let i in city) {-->
-<!--        ctx.beginPath();-->
-<!--        ctx.arc(getRndInteger(20, 280), getRndInteger(10, 140), 1, 0, 2 * Math.PI);-->
-<!--        ctx.stroke();-->
-<!--    }-->
-
-<!--    // for (let i=0; i<city; i++) { //??? ?????? ??????-->
-<!--    //     ctx.beginPath();-->
-<!--    //     ctx.arc(getRndInteger(20, 280), getRndInteger(10, 140), 1, 0, 2 * Math.PI);-->
-<!--    //     ctx.stroke();-->
-<!--    // }-->
-
-<!--</script>-->
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -57,22 +25,32 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script th:inline="javascript">
     $(function () {
+        let chartData = [];
+        for (let i = 0; i < 400; i++) {
+            chartData.push([i, 0.01 * i]);
+        }
 
-        Highcharts.chart('graph_info', {
+        // var obj =  {genomeLoop};
+
+        // var obj = "${genomeLoop}";
+        // console.log(obj);
+
+
+
+        let options = {
             chart: {
                 type: 'line',
-                width: 500
+                renderTo: 'graph_info',
             },
             title: {
                 text: 'Traveling salesman problem'
             },
-            xAxix: {
+            xAxis: {
                 min: 0,
                 max: 10,
                 title: {
                     text: 'adwawd'
                 },
-                categories: ['Apples', 'Bananas', 'Oranges']
             },
 
             yAxis: {
@@ -82,66 +60,86 @@
                     text: 'Scope'
                 }
             },
+
+            plotOptions: {
+                series: {
+                    cursor: 'pointer',
+                    point: {
+                        events: {
+                            click: function () {
+
+                                    let chart = $('#graph_info').highcharts(),
+                                        selectedPoints = chart.getSelectedPoints();
+                                    // alert('You selected ' + selectedPoints.length + ' points');
+
+                                    document.getElementById('#graph_info1').innerHTML = $(function () {
+
+                                        Highcharts.chart('graph_info1', {
+                                            chart: {
+                                                type: 'line',
+                                                width: 500,
+                                            },
+                                            title: {
+                                                text: 'Traveling salesman problem'
+                                            },
+                                            xAxis: {
+                                                min: 0,
+                                                max: 10,
+                                                title: {
+                                                    text: 'adwawds'
+                                                },
+                                            },
+
+                                            yAxis: {
+                                                min: 0,
+                                                max: 500,
+                                                title: {
+                                                    text: 'Scope'
+                                                }
+                                            },
+                                            tooltip: {
+                                                formatter: function () {
+                                                    return this.y;
+                                                }
+                                            },
+                                            series: [
+                                                {
+                                                    name: 'select',
+                                                    data: [[${genomeLoop.generation}]]
+                                                }
+                                            ]
+                                        });
+                                    });
+                            }
+                        }
+                    }
+                }
+            },
+
+
             tooltip: {
                 formatter: function () {
                     return this.y;
                 }
             },
             series: [
-                // {
-                //     name: 'Fitness',
-                //     data: [[${fitnessList}]]
-                // },
-                // {
-                //     name: 'resultAll',
-                //     data: [[${resultAll}]]
-                // },
                 {
-                    name: 'resultAll',
-                    data: [[${fitnessList}]]
-                },                {
-                    name: 'resultAll',
-                    data: [[${fitnessListWithTour}]]
+                    name: 'Tour',
+                    data: [[${genomeLoops}]],
+                },
+                {
+                    name: 'genomeLoop',
+                    data: [[${genomeLoop.generation}]],
                 }
-                // {
-                //     name: 'Time',
-                //     data: [[${time}]]
-                // },
-                // {
-                //     name: 'Mutations',
-                //     data: [[${scope}]]
-                // },
-                // {
-                //     name: 'Time',
-                //     data: [[${time}]]
-                // },
-                // {
-                //     name: 'Mutations',
-                //     data: [[${scope}]]
-                // },
-                // {
-                //     name: 'Time',
-                //     data: [[${time}]]
-                // },
-                // {
-                //     name: 'Mutations',
-                //     data: [[${scope}]]
-                // },
-                // {
-                //     name: 'Time',
-                //     data: [[${time}]]
-                // },
-                // {
-                //     name: 'Mutations',
-                //     data: [[${scope}]]
-                // },
-                // {
-                //     name: 'Time',
-                //     data: [[${time}]]
-                // }
             ]
-        });
+        };
+
+        options.series[0].data = chartData;
+
+        new Highcharts.Chart(options);
+
     });
+
 </script>
 
 </body>

@@ -1,5 +1,6 @@
 package com.salesman.Controllers;
 
+import com.salesman.Dto.GenomeLoop;
 import com.salesman.Dto.ResultDTO;
 import com.salesman.Entity.Coordinates;
 import com.salesman.Repository.CoordinatesRepository;
@@ -97,9 +98,65 @@ public class CoordinateController {
 //        Genome  = [3, 2, 1, 4]
 //TODO findout how to present
 
+        GenomeLoop genomeLoop = new GenomeLoop();
+        genomeLoop.setGeneration(fitnessList);
+        genomeLoop.setPos(228);
+
+        GenomeLoop genomeLoop2 = new GenomeLoop();
+        genomeLoop.setGeneration(fitnessListWithTour);
+        genomeLoop.setPos(322);
+
+        GenomeLoop genomeLoop3 = new GenomeLoop();
+        genomeLoop.setGeneration(fitnessList);
+        genomeLoop.setPos(342);
+
+        GenomeLoop genomeLoop4 = new GenomeLoop();
+        genomeLoop.setGeneration(fitnessListWithTour);
+        genomeLoop.setPos(160);
+
+        GenomeLoop genomeLoop5 = new GenomeLoop();
+        genomeLoop.setGeneration(fitnessListWithTour);
+        genomeLoop.setPos(322);
+
+        GenomeLoop genomeLoop6 = new GenomeLoop();
+        genomeLoop.setGeneration(fitnessListWithTour);
+        genomeLoop.setPos(331);
+
+        GenomeLoop genomeLoop7 = new GenomeLoop();
+        genomeLoop.setGeneration(fitnessListWithTour);
+        genomeLoop.setPos(157);
+
+        GenomeLoop genomeLoop8 = new GenomeLoop();
+        genomeLoop.setGeneration(fitnessListWithTour);
+        genomeLoop.setPos(164);
+
+        GenomeLoop genomeLoop9 = new GenomeLoop();
+        genomeLoop.setGeneration(fitnessListWithTour);
+        genomeLoop.setPos(322);
+
+        GenomeLoop genomeLoop10 = new GenomeLoop();
+        genomeLoop.setGeneration(fitnessListWithTour);
+        genomeLoop.setPos(142);
+
+
+        List<GenomeLoop> genomeLoops= new ArrayList<>();
+
+        genomeLoops.add(genomeLoop);
+        genomeLoops.add(genomeLoop2);
+        genomeLoops.add(genomeLoop3);
+        genomeLoops.add(genomeLoop4);
+        genomeLoops.add(genomeLoop5);
+        genomeLoops.add(genomeLoop6);
+        genomeLoops.add(genomeLoop7);
+        genomeLoops.add(genomeLoop8);
+        genomeLoops.add(genomeLoop9);
+        genomeLoops.add(genomeLoop10);
+
+
         model.addAttribute("resultAll", resultAll);
         model.addAttribute("fitnessList", fitnessList);
-        model.addAttribute("fitnessListWithTour", fitnessListWithTour);
+        model.addAttribute("genomeLoops", genomeLoops);
+        model.addAttribute("genomeLoop", genomeLoop);
         return "home";
     }
 
