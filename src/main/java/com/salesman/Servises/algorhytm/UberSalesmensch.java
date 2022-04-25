@@ -34,8 +34,8 @@ public class UberSalesmensch {
         this.startingCity = startingCity;
         this.targetFitness = targetFitness;
 
-        generationSize = 100;
-        reproductionSize = 200;
+        generationSize = 200;
+        reproductionSize = 100;
         maxIterations = 100;
         mutationRate = 0.1f;
         tournamentSize = 40;
