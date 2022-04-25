@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<body>
-
-<h2 align="center">Data Graph</h2>
+<script src=https://code.highcharts.com/highcharts.js></script>
 
 <div class="container" style="display: flex; justify-content: space-between; margin: 0 auto;">
 
@@ -15,143 +11,132 @@
     </div>
 
 </div>
+<script>
+    Highcharts.chart('graph_info', {
+        xAxis: {
+            categories: []
+        },
+
+        plotOptions: {
+            series: {
+                cursor: 'pointer',
+                point: {
+                    events: {
+                        click: function () {
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<!-- Latest compiled and minified JavaScript -->
-<script
-        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script th:inline="javascript">
-    $(function () {
-        let chartData = [];
-        for (let i = 0; i < 400; i++) {
-            chartData.push([i, 0.01 * i]);
-        }
+                                Highcharts.chart('graph_info1', {
+                                    chart: {
+                                        type: 'line',
+                                        width: 500,
+                                    },
+                                    title: {
+                                        text: 'Traveling salesman problem'
+                                    },
+                                    xAxis: {
+                                        min: 0,
+                                        max: 100,
+                                        title: {
+                                            text: 'Mutations'
+                                        },
+                                    },
 
-        // var obj =  {genomeLoop};
+                                    yAxis: {
+                                        min: 0,
 
-        // var obj = "${genomeLoop}";
-        // console.log(obj);
+                                        title: {
+                                            text: 'Scope'
+                                        }
+                                    },
+                                    tooltip: {
+                                        formatter: function () {
+                                            return this.y;
+                                        }
+                                    },
+                                    series: [
+                                        {
+                                            name: 'Detailed schedule',
+                                            data: this.options.key
+                                        }
+                                    ]
+                                });
 
-
-
-        let options = {
-            chart: {
-                type: 'line',
-                renderTo: 'graph_info',
-            },
-            title: {
-                text: 'Traveling salesman problem'
-            },
-            xAxis: {
-                min: 0,
-                max: 10,
-                title: {
-                    text: 'adwawd'
-                },
-            },
-
-            yAxis: {
-                min: 0,
-                max: 500,
-                title: {
-                    text: 'Scope'
-                }
-            },
-
-            plotOptions: {
-                series: {
-                    cursor: 'pointer',
-                    point: {
-                        events: {
-                            click: function () {
-
-                                    let chart = $('#graph_info').highcharts(),
-                                        selectedPoints = chart.getSelectedPoints();
-                                    // alert('You selected ' + selectedPoints.length + ' points');
-
-                                    document.getElementById('#graph_info1').innerHTML = $(function () {
-
-                                        Highcharts.chart('graph_info1', {
-                                            chart: {
-                                                type: 'line',
-                                                width: 500,
-                                            },
-                                            title: {
-                                                text: 'Traveling salesman problem'
-                                            },
-                                            xAxis: {
-                                                min: 0,
-                                                max: 10,
-                                                title: {
-                                                    text: 'adwawds'
-                                                },
-                                            },
-
-                                            yAxis: {
-                                                min: 0,
-                                                max: 500,
-                                                title: {
-                                                    text: 'Scope'
-                                                }
-                                            },
-                                            tooltip: {
-                                                formatter: function () {
-                                                    return this.y;
-                                                }
-                                            },
-                                            series: [
-                                                {
-                                                    name: 'select',
-                                                    data: [[${genomeLoop.generation}]]
-                                                }
-                                            ]
-                                        });
-                                    });
-                            }
                         }
                     }
                 }
-            },
+            }
+        },
 
+        series: [{
+            name: 'Roulette',
+            data: [{
+                y: [[${roulette[0].pos}]],
+                key: [[${roulette[0].generation}]]
+            }, {
+                y: [[${roulette[1].pos}]],
+                key: [[${roulette[1].generation}]]
+            }, {
+                y: [[${roulette[2].pos}]],
+                key: [[${roulette[2].generation}]]
+            }, {
+                y: [[${roulette[3].pos}]],
+                key: [[${roulette[3].generation}]]
+            }, {
+                y: [[${roulette[4].pos}]],
+                key: [[${roulette[4].generation}]]
+            }, {
+                y: [[${roulette[5].pos}]],
+                key: [[${roulette[5].generation}]]
+            },{
+                y: [[${roulette[6].pos}]],
+                key: [[${roulette[6].generation}]]
+            },{
+                y: [[${roulette[7].pos}]],
+                key: [[${roulette[7].generation}]]
+            },{
+                y: [[${roulette[8].pos}]],
+                key: [[${roulette[8].generation}]]
+            },{
+                y: [[${roulette[9].pos}]],
+                key: [[${roulette[9].generation}]]
+            }]
 
-            tooltip: {
-                formatter: function () {
-                    return this.y;
-                }
-            },
-            series: [
-                {
-                    name: 'Tour',
-                    data: [[${genomeLoops}]],
-                },
-                {
-                    name: 'genomeLoop',
-                    data: [[${genomeLoop.generation}]],
-                }
-            ]
-        };
+        },
+            {
+                name: 'Tournament',
+                data: [{
+                    y: [[${tournament[0].pos}]],
+                    key: [[${tournament[0].generation}]]
+                }, {
+                    y: [[${tournament[1].pos}]],
+                    key: [[${tournament[1].generation}]]
+                }, {
+                    y: [[${tournament[2].pos}]],
+                    key: [[${tournament[2].generation}]]
+                }, {
+                    y: [[${tournament[3].pos}]],
+                    key: [[${tournament[3].generation}]]
+                }, {
+                    y: [[${tournament[4].pos}]],
+                    key: [[${tournament[4].generation}]]
+                }, {
+                    y: [[${tournament[5].pos}]],
+                    key: [[${tournament[5].generation}]]
+                },{
+                    y: [[${tournament[6].pos}]],
+                    key: [[${tournament[6].generation}]]
+                },{
+                    y: [[${tournament[7].pos}]],
+                    key: [[${tournament[7].generation}]]
+                },{
+                    y: [[${tournament[8].pos}]],
+                    key: [[${tournament[8].generation}]]
+                },{
+                    y: [[${tournament[9].pos}]],
+                    key: [[${tournament[9].generation}]]
+                }]
 
-        options.series[0].data = chartData;
-
-        new Highcharts.Chart(options);
-
+            }
+        ]
     });
-
 </script>
-
-</body>
-<head>
-    <meta charset="ISO-8859-1"/>
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-
-    <!-- Optional theme -->
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"/>
-    <title>smp</title>
-
-</head>
-</html>
