@@ -38,7 +38,7 @@ public class UberSalesmensch {
         reproductionSize = 100;
         maxIterations = 100;
         mutationRate = 0.1f;
-        tournamentSize = 40;
+        tournamentSize = 20;
     }
 
     public List<SalesmanGenome> initialPopulation(){
@@ -179,7 +179,7 @@ public class UberSalesmensch {
                 break;
         }
         ResultDTO resultDTO = new ResultDTO();
-        resultDTO.setSalesmanGenome(globalBestGenome);
+        resultDTO.setSalesmanGenome(Collections.min(generation));
         resultDTO.setGeneration(generation);
         return resultDTO;
     }

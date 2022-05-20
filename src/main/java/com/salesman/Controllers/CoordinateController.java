@@ -2,8 +2,6 @@ package com.salesman.Controllers;
 
 import com.salesman.Dto.GenomeLoop;
 import com.salesman.Dto.ResultDTO;
-import com.salesman.Entity.Coordinates;
-import com.salesman.Repository.CoordinatesRepository;
 import com.salesman.Servises.algorhytm.SalesmanGenome;
 import com.salesman.Servises.algorhytm.SelectionType;
 import com.salesman.Servises.algorhytm.UberSalesmensch;
@@ -24,13 +22,13 @@ public class CoordinateController {
     private SelectionType selectionType;
     private UberSalesmensch uberSalesmensch;
 
-    @Autowired
-    CoordinatesRepository coordinatesRepository;
-
-    @GetMapping("/all")
-    List<Coordinates> all() {
-        return coordinatesRepository.findAll();
-    }
+//    @Autowired
+//    CoordinatesRepository coordinatesRepository;
+//
+//    @GetMapping("/all")
+//    List<Coordinates> all() {
+//        return coordinatesRepository.findAll();
+//    }
 
 
     @GetMapping("/home")
