@@ -8,11 +8,11 @@ import com.salesman.Servises.algorhytm.UberSalesmensch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Controller
@@ -56,26 +56,76 @@ public class CoordinateController {
         List<GenomeLoop> roulette = new ArrayList<>();
         List<GenomeLoop> tournament = new ArrayList<>();
 
+        List<Long> rouletteTime = new ArrayList<>();
+        List<Long> tourTime = new ArrayList<>();
+
+
 
         //Alg iterations
         for (int i = 0; i < 10; i++) {
+            StopWatch watch = new StopWatch();
+            watch.start();
             ResultDTO res = geneticAlgorithmWithRoulette.optimizeAll();
             var generationRes = res.getGeneration().stream()
                     .map(SalesmanGenome::getFitness)
                     .collect(Collectors.toList());
 
-            roulette.add(new GenomeLoop(res.getSalesmanGenome().getFitness(), generationRes));
+            Map<Integer, Long> frequency =
+                    generationRes.stream().collect(Collectors.groupingBy(
+                            Function.identity(), Collectors.counting()));
+
+
+            List<Integer> key = frequency.entrySet()
+                    .stream()
+                    .sorted(Comparator.comparing(Map.Entry<Integer, Long>::getValue).reversed())
+                    .map(Map.Entry<Integer, Long>::getKey)
+                    .collect(Collectors.toList());
+
+            List<Long> value = frequency.entrySet()
+                    .stream()
+                    .sorted(Comparator.comparing(Map.Entry<Integer, Long>::getValue).reversed())
+                    .map(Map.Entry<Integer, Long>::getValue)
+                    .collect(Collectors.toList());
+
+
+            roulette.add(new GenomeLoop(res.getSalesmanGenome().getFitness(), generationRes, key, value));
+            watch.stop();
+            rouletteTime.add(watch.getTotalTimeMillis());
         }
 
 
         for (int i = 0; i < 10; i++) {
+            StopWatch watch = new StopWatch();
+            watch.start();
             ResultDTO res = geneticAlgorithmWithTour.optimizeAll();
             var generationRes = res.getGeneration().stream()
                     .map(SalesmanGenome::getFitness)
                     .collect(Collectors.toList());
 
-            tournament.add(new GenomeLoop(res.getSalesmanGenome().getFitness(), generationRes));
+
+            Map<Integer, Long> frequency =
+                    generationRes.stream().collect(Collectors.groupingBy(
+                            Function.identity(), Collectors.counting()));
+
+
+
+            List<Integer> key = frequency.entrySet()
+                    .stream()
+                    .sorted(Comparator.comparing(Map.Entry<Integer, Long>::getValue).reversed())
+                    .map(Map.Entry<Integer, Long>::getKey)
+                    .collect(Collectors.toList());
+
+            List<Long> value = frequency.entrySet()
+                    .stream()
+                    .sorted(Comparator.comparing(Map.Entry<Integer, Long>::getValue).reversed())
+                    .map(Map.Entry<Integer, Long>::getValue)
+                    .collect(Collectors.toList());
+
+            tournament.add(new GenomeLoop(res.getSalesmanGenome().getFitness(), generationRes, key, value));
+            watch.stop();
+            tourTime.add(watch.getTotalTimeMillis());
         }
+
         //Looks like
 //        Path: 0 3 2 1 4 0
 //        Length: 199
@@ -86,6 +136,8 @@ public class CoordinateController {
 
         model.addAttribute("roulette", roulette);
         model.addAttribute("tournament", tournament);
+        model.addAttribute("rouletteTime", rouletteTime);
+        model.addAttribute("tourTime", tourTime);
         return "home";
     }
 
