@@ -128,26 +128,13 @@ public class CoordinateController {
             tourTime.add(watch.getTotalTimeMillis());
         }
 
-        List<List> kekws = new ArrayList<>();
-        kekws.add(List.of(4.90, 53.38));
-        kekws.add(List.of(-118.24, 34.05));
-        kekws.add(List.of(-75.69, 45.38));
-        kekws.add(List.of(-122.33, 47.36));
-        //Looks like
-//        Path: 0 3 2 1 4 0
-//        Length: 199
-//        Starting city = 0
-//        Fitness = 199
-//        Genome  = [3, 2, 1, 4]
-//TODO findout how to present
-
         model.addAttribute("roulette", roulette);
         model.addAttribute("tournament", tournament);
         model.addAttribute("rouletteTime", rouletteTime);
         model.addAttribute("tourTime", tourTime);
-        model.addAttribute("kekws", kekws);
         return "home";
     }
+
     private List<List> numsToCoordinates(List<Integer> genome) {
         List<List> coordinates = new ArrayList<>();
         coordinates.add(List.of(4.90, 53.38));
@@ -200,9 +187,8 @@ public class CoordinateController {
                     coordinates.add(List.of(-127.64, 53.72));
                     break;
             }
-            coordinates.add(List.of(4.90, 53.38));
         });
-
+        coordinates.add(List.of(4.90, 53.38));
         return coordinates;
     }
 }
