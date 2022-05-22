@@ -60,41 +60,41 @@
                         click: function () {
 
 
-                                Highcharts.chart('graph_info1', {
-                                    chart: {
-                                        type: 'line',
-                                        width: 500,
-                                    },
+                            Highcharts.chart('graph_info1', {
+                                chart: {
+                                    type: 'line',
+                                    width: 500,
+                                },
+                                title: {
+                                    text: 'Detailed graph'
+                                },
+                                xAxis: {
+                                    min: 0,
+                                    max: 100,
                                     title: {
-                                        text: 'Detailed graph'
+                                        text: 'Mutations'
                                     },
-                                    xAxis: {
-                                        min: 0,
-                                        max: 100,
-                                        title: {
-                                            text: 'Mutations'
-                                        },
-                                    },
+                                },
 
-                                    yAxis: {
-                                        min: 0,
+                                yAxis: {
+                                    min: 0,
 
-                                        title: {
-                                            text: 'Scope'
-                                        }
-                                    },
-                                    tooltip: {
-                                        formatter: function () {
-                                            return this.y;
-                                        }
-                                    },
-                                    series: [
-                                        {
-                                            name: 'Detailed schedule',
-                                            data: this.options.key
-                                        }
-                                    ]
-                                });
+                                    title: {
+                                        text: 'Scope'
+                                    }
+                                },
+                                tooltip: {
+                                    formatter: function () {
+                                        return this.y;
+                                    }
+                                },
+                                series: [
+                                    {
+                                        name: 'Detailed schedule',
+                                        data: this.options.key
+                                    }
+                                ]
+                            });
 
                             Highcharts.chart('graph_info3', {
                                 chart: {
@@ -170,22 +170,22 @@
                 key: [[${roulette[5].generation}]],
                 gistKey: [[${roulette[5].gistagrammKeys}]],
                 gistValue: [[${roulette[5].gistagrammValues}]]
-            },{
+            }, {
                 y: [[${roulette[6].pos}]],
                 key: [[${roulette[6].generation}]],
                 gistKey: [[${roulette[6].gistagrammKeys}]],
                 gistValue: [[${roulette[6].gistagrammValues}]]
-            },{
+            }, {
                 y: [[${roulette[7].pos}]],
                 key: [[${roulette[7].generation}]],
                 gistKey: [[${roulette[7].gistagrammKeys}]],
                 gistValue: [[${roulette[7].gistagrammValues}]]
-            },{
+            }, {
                 y: [[${roulette[8].pos}]],
                 key: [[${roulette[8].generation}]],
                 gistKey: [[${roulette[8].gistagrammKeys}]],
                 gistValue: [[${roulette[8].gistagrammValues}]]
-            },{
+            }, {
                 y: [[${roulette[9].pos}]],
                 key: [[${roulette[9].generation}]],
                 gistKey: [[${roulette[9].gistagrammKeys}]],
@@ -225,22 +225,22 @@
                     key: [[${tournament[5].generation}]],
                     gistKey: [[${tournament[5].gistagrammKeys}]],
                     gistValue: [[${tournament[5].gistagrammValues}]]
-                },{
+                }, {
                     y: [[${tournament[6].pos}]],
                     key: [[${tournament[6].generation}]],
                     gistKey: [[${tournament[6].gistagrammKeys}]],
                     gistValue: [[${tournament[6].gistagrammValues}]]
-                },{
+                }, {
                     y: [[${tournament[7].pos}]],
                     key: [[${tournament[7].generation}]],
                     gistKey: [[${tournament[7].gistagrammKeys}]],
                     gistValue: [[${tournament[7].gistagrammValues}]]
-                },{
+                }, {
                     y: [[${tournament[8].pos}]],
                     key: [[${tournament[8].generation}]],
                     gistKey: [[${tournament[8].gistagrammKeys}]],
                     gistValue: [[${tournament[8].gistagrammValues}]]
-                },{
+                }, {
                     y: [[${tournament[9].pos}]],
                     key: [[${tournament[9].generation}]],
                     gistKey: [[${tournament[9].gistagrammKeys}]],
@@ -250,8 +250,6 @@
             }
         ]
     });
-
-
 
 
     Highcharts.chart('timeGraph', {
@@ -1278,15 +1276,21 @@
                     geometry: {
                         type: 'LineString',
                         coordinates: [[${kekws}]]
-                            // [4.90, 53.38], // Amsterdam
-                            // [-118.24, 34.05], // Los Angeles
-                            // [-75.69, 45.38], //Ottawa
-                            // [-122.33, 47.36], //Washington
-                            // [-87.62, 41.88], //Chicago
-                            // [-92.32, 30.39], //Louisiana
-                            // [-99.13, 19.43], //Mexico
-                            // [-80.19, 25.76], //Miami
-                            // [4.90, 53.38] // Amsterdam
+                        // [4.90, 53.38], // Amsterdam
+                        // [-118.24, 34.05], // Los Angeles
+                        // [-75.69, 45.38], //Ottawa
+                        // [-122.33, 47.36], //Washington
+                        // [-87.62, 41.88], //Chicago
+                        // [-92.32, 30.39], //Louisiana
+                        // [-99.13, 19.43], //Mexico
+                        // [-80.19, 25.76], //Miami
+                        // [-82.36, 23.11] // Cuba
+                        // [-75.00, 43.00] // New York
+                        // [-66.91, 10.50] // Caracas
+                        // [-72.33, 18.53] // Haiti
+                        // [-71.25, 46.82] // Quebec
+                        // [-85.00, 50.00] // Ontario
+                        // [-127.64, 53.72] // British colombia
                         // ]
                     },
                     color: '#313f77'
@@ -1347,9 +1351,49 @@
                         type: 'Point',
                         coordinates: [-80.19, 25.76]
                     }
-                },
-
-
+                }, {
+                    name: 'Cuba',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [-82.36, 23.11]
+                    }
+                }, {
+                    name: 'New York',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [-75.00, 43.00]
+                    }
+                }, {
+                    name: 'Caracas',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [-66.91, 10.50]
+                    }
+                }, {
+                    name: 'Haiti',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [-72.33, 18.53]
+                    }
+                }, {
+                    name: 'Quebec',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [-71.25, 46.82]
+                    }
+                }, {
+                    name: 'Ontario',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [-85.00, 50.00]
+                    }
+                },{
+                    name: 'British Columbia',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [-127.64, 53.72]
+                    }
+                }
                 ],
                 color: '#313f77',
                 accessibility: {

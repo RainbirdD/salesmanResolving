@@ -60,7 +60,6 @@ public class CoordinateController {
         List<Long> tourTime = new ArrayList<>();
 
 
-
         //Alg iterations
         for (int i = 0; i < 10; i++) {
             StopWatch watch = new StopWatch();
@@ -69,6 +68,8 @@ public class CoordinateController {
             var generationRes = res.getGeneration().stream()
                     .map(SalesmanGenome::getFitness)
                     .collect(Collectors.toList());
+
+            var coordinates = numsToCoordinates(res.getSalesmanGenome().getGenome());
 
             Map<Integer, Long> frequency =
                     generationRes.stream().collect(Collectors.groupingBy(
@@ -88,7 +89,8 @@ public class CoordinateController {
                     .collect(Collectors.toList());
 
 
-            roulette.add(new GenomeLoop(res.getSalesmanGenome().getFitness(), generationRes, key, value));
+
+            roulette.add(new GenomeLoop(res.getSalesmanGenome().getFitness(), generationRes, key, value, coordinates));
             watch.stop();
             rouletteTime.add(watch.getTotalTimeMillis());
         }
@@ -102,11 +104,11 @@ public class CoordinateController {
                     .map(SalesmanGenome::getFitness)
                     .collect(Collectors.toList());
 
+            var coordinates = numsToCoordinates(res.getSalesmanGenome().getGenome());
 
             Map<Integer, Long> frequency =
                     generationRes.stream().collect(Collectors.groupingBy(
                             Function.identity(), Collectors.counting()));
-
 
 
             List<Integer> key = frequency.entrySet()
@@ -121,7 +123,7 @@ public class CoordinateController {
                     .map(Map.Entry<Integer, Long>::getValue)
                     .collect(Collectors.toList());
 
-            tournament.add(new GenomeLoop(res.getSalesmanGenome().getFitness(), generationRes, key, value));
+            tournament.add(new GenomeLoop(res.getSalesmanGenome().getFitness(), generationRes, key, value, coordinates));
             watch.stop();
             tourTime.add(watch.getTotalTimeMillis());
         }
@@ -146,5 +148,61 @@ public class CoordinateController {
         model.addAttribute("kekws", kekws);
         return "home";
     }
+    private List<List> numsToCoordinates(List<Integer> genome) {
+        List<List> coordinates = new ArrayList<>();
+        coordinates.add(List.of(4.90, 53.38));
 
+        genome.forEach(v -> {
+            switch (v) {
+                case 0:
+                    coordinates.add(List.of(4.90, 53.38));
+                    break;
+                case 1:
+                    coordinates.add(List.of(-118.24, 34.05));
+                    break;
+                case 2:
+                    coordinates.add(List.of(-75.69, 45.38));
+                    break;
+                case 3:
+                    coordinates.add(List.of(-122.33, 47.36));
+                    break;
+                case 4:
+                    coordinates.add(List.of(-87.62, 41.88));
+                    break;
+                case 5:
+                    coordinates.add(List.of(-92.32, 30.39));
+                    break;
+                case 6:
+                    coordinates.add(List.of(-99.13, 19.43));
+                    break;
+                case 7:
+                    coordinates.add(List.of(-80.19, 25.76));
+                    break;
+                case 8:
+                    coordinates.add(List.of(-82.36, 23.11));
+                    break;
+                case 9:
+                    coordinates.add(List.of(-75.00, 43.00));
+                    break;
+                case 10:
+                    coordinates.add(List.of(-66.91, 10.50));
+                    break;
+                case 11:
+                    coordinates.add(List.of(-72.33, 18.53));
+                    break;
+                case 12:
+                    coordinates.add(List.of(-71.25, 46.82));
+                    break;
+                case 13:
+                    coordinates.add(List.of(-85.00, 50.00));
+                    break;
+                case 14:
+                    coordinates.add(List.of(-127.64, 53.72));
+                    break;
+            }
+            coordinates.add(List.of(4.90, 53.38));
+        });
+
+        return coordinates;
+    }
 }

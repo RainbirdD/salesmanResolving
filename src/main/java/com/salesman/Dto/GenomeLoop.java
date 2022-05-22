@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.Map;
 
 @Data
 @AllArgsConstructor
@@ -15,4 +14,6 @@ public class GenomeLoop {
     List<Integer> generation;
     List<Integer> gistagrammKeys;
     List<Long> gistagrammValues;
+    List<List> coordinates;
+
 }
