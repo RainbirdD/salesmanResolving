@@ -1277,10 +1277,17 @@
                 data: [{
                     geometry: {
                         type: 'LineString',
-                        coordinates: [
-                            [4.90, 53.38], // Amsterdam
-                            [-118.24, 34.05] // Los Angeles
-                        ]
+                        coordinates: [[${kekws}]]
+                            // [4.90, 53.38], // Amsterdam
+                            // [-118.24, 34.05], // Los Angeles
+                            // [-75.69, 45.38], //Ottawa
+                            // [-122.33, 47.36], //Washington
+                            // [-87.62, 41.88], //Chicago
+                            // [-92.32, 30.39], //Louisiana
+                            // [-99.13, 19.43], //Mexico
+                            // [-80.19, 25.76], //Miami
+                            // [4.90, 53.38] // Amsterdam
+                        // ]
                     },
                     color: '#313f77'
                 }],
@@ -1304,7 +1311,46 @@
                         type: 'Point',
                         coordinates: [-118.24, 34.05]
                     }
-                }],
+                }, {
+                    name: 'Ottawa',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [-75.60, 45.38]
+                    }
+                }, {
+                    name: 'Washington',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [-122.33, 47.36]
+                    }
+                }, {
+                    name: 'Chicago',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [-87.62, 41.88]
+                    }
+                }, {
+                    name: 'Louisiana',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [-92.32, 30.39]
+                    }
+                }, {
+                    name: 'Mexico',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [-99.13, 19.43]
+                    }
+                }, {
+                    name: 'Miami',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [-80.19, 25.76]
+                    }
+                },
+
+
+                ],
                 color: '#313f77',
                 accessibility: {
                     enabled: false

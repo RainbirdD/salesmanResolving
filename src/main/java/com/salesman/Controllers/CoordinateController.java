@@ -126,6 +126,11 @@ public class CoordinateController {
             tourTime.add(watch.getTotalTimeMillis());
         }
 
+        List<List> kekws = new ArrayList<>();
+        kekws.add(List.of(4.90, 53.38));
+        kekws.add(List.of(-118.24, 34.05));
+        kekws.add(List.of(-75.69, 45.38));
+        kekws.add(List.of(-122.33, 47.36));
         //Looks like
 //        Path: 0 3 2 1 4 0
 //        Length: 199
@@ -138,6 +143,7 @@ public class CoordinateController {
         model.addAttribute("tournament", tournament);
         model.addAttribute("rouletteTime", rouletteTime);
         model.addAttribute("tourTime", tourTime);
+        model.addAttribute("kekws", kekws);
         return "home";
     }
 
