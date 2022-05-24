@@ -22,15 +22,6 @@ public class CoordinateController {
     private SelectionType selectionType;
     private UberSalesmensch uberSalesmensch;
 
-//    @Autowired
-//    CoordinatesRepository coordinatesRepository;
-//
-//    @GetMapping("/all")
-//    List<Coordinates> all() {
-//        return coordinatesRepository.findAll();
-//    }
-
-
     @GetMapping("/home")
     public String showGraph(Model model) {
 
