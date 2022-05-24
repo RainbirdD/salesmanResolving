@@ -166,20 +166,20 @@ public class AntAlgorithm {
     public AntDTO solveXXX() {
         AntDTO antDTO = new AntDTO();
 
-        List<Double> kekw = new ArrayList<>();
+        List<Integer> kekw = new ArrayList<>();
         setupAnts();
         clearTrails();
         for (int i = 0; i < maxIterations; i++) {
+
             moveAnts();
             updateTrails();
             updateBest();
-            kekw.add(bestTourLength);
+            kekw.add((int) bestTourLength);
         }
 
         antDTO.setValue(bestTourLength);
         antDTO.setAllRolls(kekw);
 
-        System.out.println("wadawdawda");
         System.out.println(antDTO.getValue());
         System.out.println(antDTO.getAllRolls());
 
@@ -282,6 +282,8 @@ public class AntAlgorithm {
     // Обновите лучшее решение
 
     private void updateBest() {
+        List<Double> kekw = new ArrayList<>();
+
         if (bestTourOrder == null) {
             bestTourOrder = ants.get(0).trail;
             bestTourLength = ants.get(0).trailLength(graph);
@@ -289,10 +291,13 @@ public class AntAlgorithm {
 
         for (Ant a : ants) {
             if (a.trailLength(graph) < bestTourLength) {
+                kekw.add(bestTourLength);
+                System.out.println(bestTourLength);
                 bestTourLength = a.trailLength(graph);
                 bestTourOrder = a.trail.clone();
             }
         }
+        System.out.println(kekw);
     }
 
 
