@@ -51,7 +51,11 @@ public class Main {
 
 
         SimulatedAnnealing simulatedAnnealing = new SimulatedAnnealing();
-        simulatedAnnealing.simulation();
+//        simulatedAnnealing.simulation();
+        var kekw = simulatedAnnealing.govnoXXX();
+            System.out.println(kekw.getPos());
+            System.out.println(kekw.getGeneration());
+
 
         System.out.println("Final approximate solution distance is = " + simulatedAnnealing.getBest().getDistance());
         System.out.println("Tour : " + simulatedAnnealing.getBest());
