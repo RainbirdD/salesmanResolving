@@ -34,11 +34,11 @@ public class UberSalesmensch {
         this.startingCity = startingCity;
         this.targetFitness = targetFitness;
 
-        generationSize = 200;
-        reproductionSize = 100;
+        generationSize = 5000;
+        reproductionSize = 200;
         maxIterations = 100;
         mutationRate = 0.1f;
-        tournamentSize = 20;
+        tournamentSize = 80;
     }
 
     public List<SalesmanGenome> initialPopulation(){
@@ -153,18 +153,18 @@ public class UberSalesmensch {
         return children;
     }
 
-    public SalesmanGenome optimize(){
-        List<SalesmanGenome> population = initialPopulation();
-        SalesmanGenome globalBestGenome = population.get(0);
-        for(int i=0; i<maxIterations; i++){
-            List<SalesmanGenome> selected = selection(population);
-            population = createGeneration(selected);
-            globalBestGenome = Collections.min(population);
-            if(globalBestGenome.getFitness() < targetFitness)
-                break;
-        }
-        return globalBestGenome;
-    }
+//    public SalesmanGenome optimize(){
+//        List<SalesmanGenome> population = initialPopulation();
+//        SalesmanGenome globalBestGenome = population.get(0);
+//        for(int i=0; i<maxIterations; i++){
+//            List<SalesmanGenome> selected = selection(population);
+//            population = createGeneration(selected);
+//            globalBestGenome = Collections.min(population);
+//            if(globalBestGenome.getFitness() < targetFitness)
+//                break;
+//        }
+//        return globalBestGenome;
+//    }
 
     public ResultDTO optimizeAll(){
         List<SalesmanGenome> generation = new ArrayList<>();
