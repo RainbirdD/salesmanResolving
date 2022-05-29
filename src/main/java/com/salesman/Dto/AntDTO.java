@@ -8,6 +8,6 @@ import java.util.List;
 @Data
 @RequiredArgsConstructor
 public class AntDTO {
-    private double value;
-    List<Integer> allRolls;
+    double pos;
+    List<Double> generation;
 }
