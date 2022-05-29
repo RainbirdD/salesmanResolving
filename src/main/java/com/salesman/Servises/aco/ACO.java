@@ -20,7 +20,7 @@ public class ACO {
     public ACO(Matrix matrix) {
         adjMatrix = matrix;
         numOfCities = adjMatrix.getSize();
-        numOfCycles = 2000;
+        numOfCycles = 1000;
         initPheromones();
     }
 
@@ -37,7 +37,6 @@ public class ACO {
             evaporate();
             updatePheromones();
         }
-        System.out.printf("Best found TSP solution of cost %f visiting %s%n", bestTourLength, bestTourPath);
     }
 
     public AntDTO runs() {
@@ -57,11 +56,9 @@ public class ACO {
             evaporate();
             updatePheromones();
         }
-        System.out.printf("Best found TSP solution of cost %f visiting %s%n", bestTourLength, bestTourPath);
 
         antDTO.setPos(bestTourLength);
         antDTO.setGeneration(generation);
-        System.out.println(antDTO);
         return antDTO;
     }
 

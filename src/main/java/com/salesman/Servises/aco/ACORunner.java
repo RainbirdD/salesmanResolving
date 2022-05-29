@@ -2,6 +2,7 @@ package com.salesman.Servises.aco;
 
 import com.salesman.Dto.AntDTO;
 import lombok.Data;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.nio.file.*;
@@ -9,30 +10,10 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 @Data
+@Service
 public class ACORunner {
 
-    public static void main(String[] args) throws IOException {
-        ArrayList<String> filePaths = new ArrayList<>();
-        filePaths.add("C:\\IdeaProjects\\salesman\\src\\main\\java\\com\\salesman\\Servises\\aco\\input.txt");
-        for (String filePath : filePaths) {
-            Matrix adjMatrix = parseInput(filePath);
-            ACO aco = new ACO(adjMatrix);
-            aco.runs();
-        }
-    }
-
-//    private static void runAlgorithm() throws IOException {
-//        ArrayList<String> filePaths = new ArrayList<>();
-//        filePaths.add("C:\\IdeaProjects\\salesman\\src\\main\\java\\com\\salesman\\Servises\\aco\\input.txt");
-//        for (String filePath : filePaths) {
-//            Matrix adjMatrix = parseInput(filePath);
-//            ACO aco = new ACO(adjMatrix);
-//            aco.run();
-//        }
-//    }
-
-
-    private AntDTO runAlgorithm() throws IOException {
+    public AntDTO runAlgorithm() throws IOException {
         AntDTO antDTO = new AntDTO();
 
 
@@ -41,10 +22,8 @@ public class ACORunner {
         for (String filePath : filePaths) {
             Matrix adjMatrix = parseInput(filePath);
             ACO aco = new ACO(adjMatrix);
-            aco.run();
+            antDTO = aco.runs();
         }
-
-
         return antDTO;
     }
 
