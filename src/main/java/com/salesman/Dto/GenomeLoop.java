@@ -12,8 +12,6 @@ import java.util.List;
 public class GenomeLoop {
     Integer pos;
     List<Integer> generation;
-    List<Integer> gistagrammKeys;
-    List<Long> gistagrammValues;
     List<List> coordinates;
 
 }

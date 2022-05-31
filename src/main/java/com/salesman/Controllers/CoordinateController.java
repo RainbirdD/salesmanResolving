@@ -70,25 +70,7 @@ public class CoordinateController {
 
             var coordinates = numsToCoordinates(res.getSalesmanGenome().getGenome());
 
-            Map<Integer, Long> frequency =
-                    generationRes.stream().collect(Collectors.groupingBy(
-                            Function.identity(), Collectors.counting()));
-
-
-            List<Integer> key = frequency.entrySet()
-                    .stream()
-                    .sorted(Comparator.comparing(Map.Entry<Integer, Long>::getValue).reversed())
-                    .map(Map.Entry<Integer, Long>::getKey)
-                    .collect(Collectors.toList());
-
-            List<Long> value = frequency.entrySet()
-                    .stream()
-                    .sorted(Comparator.comparing(Map.Entry<Integer, Long>::getValue).reversed())
-                    .map(Map.Entry<Integer, Long>::getValue)
-                    .collect(Collectors.toList());
-
-
-            roulette.add(new GenomeLoop(res.getSalesmanGenome().getFitness(), generationRes, key, value, coordinates));
+            roulette.add(new GenomeLoop(res.getSalesmanGenome().getFitness(), generationRes, coordinates));
             watch.stop();
             rouletteTime.add(watch.getTotalTimeMillis());
         }
@@ -104,58 +86,61 @@ public class CoordinateController {
 
             var coordinates = numsToCoordinates(res.getSalesmanGenome().getGenome());
 
-            Map<Integer, Long> frequency =
-                    generationRes.stream().collect(Collectors.groupingBy(
-                            Function.identity(), Collectors.counting()));
-
-
-            List<Integer> key = frequency.entrySet()
-                    .stream()
-                    .sorted(Comparator.comparing(Map.Entry<Integer, Long>::getValue).reversed())
-                    .map(Map.Entry<Integer, Long>::getKey)
-                    .collect(Collectors.toList());
-
-            List<Long> value = frequency.entrySet()
-                    .stream()
-                    .sorted(Comparator.comparing(Map.Entry<Integer, Long>::getValue).reversed())
-                    .map(Map.Entry<Integer, Long>::getValue)
-                    .collect(Collectors.toList());
-
-            tournament.add(new GenomeLoop(res.getSalesmanGenome().getFitness(), generationRes, key, value, coordinates));
+            tournament.add(new GenomeLoop(res.getSalesmanGenome().getFitness(), generationRes, coordinates));
             watch.stop();
             tourTime.add(watch.getTotalTimeMillis());
         }
 
-        List<Integer> gistogramm = tournament.stream()
+        List<Integer> tourGistogramm = tournament.stream()
                 .map(GenomeLoop::getPos)
                 .collect(Collectors.toList());
 
-        Map<Integer, Long> frequency =
-                gistogramm.stream().collect(Collectors.groupingBy(
+        List<Integer> rouletteGistogramm = roulette.stream()
+                .map(GenomeLoop::getPos)
+                .collect(Collectors.toList());
+
+        Map<Integer, Long> tourFrequency =
+                tourGistogramm.stream().collect(Collectors.groupingBy(
+                        Function.identity(), Collectors.counting()));
+
+        Map<Integer, Long> rouletteFrequency =
+                rouletteGistogramm.stream().collect(Collectors.groupingBy(
                         Function.identity(), Collectors.counting()));
 
 
-        List<Integer> key = frequency.entrySet()
+        List<Integer> tournamentKey = tourFrequency.entrySet()
                 .stream()
                 .sorted(Comparator.comparing(Map.Entry<Integer, Long>::getValue).reversed())
                 .map(Map.Entry<Integer, Long>::getKey)
                 .collect(Collectors.toList());
 
-        List<Long> value = frequency.entrySet()
+        List<Long> tournamentValue = tourFrequency.entrySet()
+                .stream()
+                .sorted(Comparator.comparing(Map.Entry<Integer, Long>::getValue).reversed())
+                .map(Map.Entry<Integer, Long>::getValue)
+                .collect(Collectors.toList());
+
+        List<Integer> rouletteKey = rouletteFrequency.entrySet()
+                .stream()
+                .sorted(Comparator.comparing(Map.Entry<Integer, Long>::getValue).reversed())
+                .map(Map.Entry<Integer, Long>::getKey)
+                .collect(Collectors.toList());
+
+        List<Long> rouletteValue = rouletteFrequency.entrySet()
                 .stream()
                 .sorted(Comparator.comparing(Map.Entry<Integer, Long>::getValue).reversed())
                 .map(Map.Entry<Integer, Long>::getValue)
                 .collect(Collectors.toList());
 
 
-
-
         model.addAttribute("roulette", roulette);
         model.addAttribute("tournament", tournament);
         model.addAttribute("rouletteTime", rouletteTime);
         model.addAttribute("tourTime", tourTime);
-        model.addAttribute("key", key);
-        model.addAttribute("value", value);
+        model.addAttribute("tournamentKey", tournamentKey);
+        model.addAttribute("tournamentValue", tournamentValue);
+        model.addAttribute("rouletteKey", rouletteKey);
+        model.addAttribute("rouletteValue", rouletteValue);
         return "home";
     }
 

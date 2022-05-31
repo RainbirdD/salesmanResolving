@@ -176,7 +176,6 @@ public class UberSalesmensch {
             if (key == 20) {
                 break;
             }
-            System.out.println(key);
         }
         ResultDTO resultDTO = new ResultDTO();
         resultDTO.setSalesmanGenome(Collections.min(generation));
