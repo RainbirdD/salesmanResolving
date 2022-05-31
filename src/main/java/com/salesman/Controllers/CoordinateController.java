@@ -60,7 +60,7 @@ public class CoordinateController {
 
 
         //Alg iterations
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 30; i++) {
             StopWatch watch = new StopWatch();
             watch.start();
             ResultDTO res = geneticAlgorithmWithRoulette.optimizeAll();
@@ -94,7 +94,7 @@ public class CoordinateController {
         }
 
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 30; i++) {
             StopWatch watch = new StopWatch();
             watch.start();
             ResultDTO res = geneticAlgorithmWithTour.optimizeAll();
@@ -126,10 +126,36 @@ public class CoordinateController {
             tourTime.add(watch.getTotalTimeMillis());
         }
 
+        List<Integer> gistogramm = tournament.stream()
+                .map(GenomeLoop::getPos)
+                .collect(Collectors.toList());
+
+        Map<Integer, Long> frequency =
+                gistogramm.stream().collect(Collectors.groupingBy(
+                        Function.identity(), Collectors.counting()));
+
+
+        List<Integer> key = frequency.entrySet()
+                .stream()
+                .sorted(Comparator.comparing(Map.Entry<Integer, Long>::getValue).reversed())
+                .map(Map.Entry<Integer, Long>::getKey)
+                .collect(Collectors.toList());
+
+        List<Long> value = frequency.entrySet()
+                .stream()
+                .sorted(Comparator.comparing(Map.Entry<Integer, Long>::getValue).reversed())
+                .map(Map.Entry<Integer, Long>::getValue)
+                .collect(Collectors.toList());
+
+
+
+
         model.addAttribute("roulette", roulette);
         model.addAttribute("tournament", tournament);
         model.addAttribute("rouletteTime", rouletteTime);
         model.addAttribute("tourTime", tourTime);
+        model.addAttribute("key", key);
+        model.addAttribute("value", value);
         return "home";
     }
 
