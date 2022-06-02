@@ -99,6 +99,12 @@ public class CoordinateController {
                 .map(GenomeLoop::getPos)
                 .collect(Collectors.toList());
 
+
+
+
+
+
+
         Map<Integer, Long> tourFrequency =
                 tourGistogramm.stream().collect(Collectors.groupingBy(
                         Function.identity(), Collectors.counting()));
