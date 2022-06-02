@@ -22,12 +22,14 @@ public class CoordinateController {
     private SelectionType selectionType;
     private UberSalesmensch uberSalesmensch;
 
+
     @GetMapping("/home")
     public String showGraph(Model model) {
 
         System.out.println("Exec");
         //Towns
         int numberOfCities = 15;
+        int gistagrammValue = 8;
 
         int[][] travelPrices = new int[][]{
                 {0, 8938, 5628, 6189, 6604, 7773, 9045, 7442, 7637, 5860, 7850, 7482, 5260, 5775, 7311},
@@ -100,9 +102,38 @@ public class CoordinateController {
                 .collect(Collectors.toList());
 
 
+        List<Long> values = new ArrayList<>();
+        List<String> distances = new ArrayList<>();
+
+        for (int i = 0; i < gistagrammValue; i++) {
+            long min = Collections.min(tourGistogramm);
+            int max = Collections.max(tourGistogramm);
+
+            long delta = (max - min) / gistagrammValue;
+
+            int finalI = i;
+
+            if(i<gistagrammValue-1){
+                long count = tourGistogramm.stream()
+                        .filter(v -> v >= min + delta * finalI && v < min + delta * (finalI+1))
+                        .count();
+                values.add(count);
+            }else {
+                long count = tourGistogramm.stream()
+                        .filter(v -> v >= min + delta * finalI && v < min + delta * (finalI+2))
+                        .count();
+                values.add(count);
+            }
 
 
-
+            if(i<gistagrammValue-1){
+                distances.add("From " + String.valueOf(min + delta * finalI) + " to " + String.valueOf(min + delta * (finalI + 1)));
+            }else {
+                distances.add("From " + String.valueOf(min + delta * finalI) + " to " + String.valueOf(min + delta * (finalI+2)));
+            }
+        }
+        System.out.println(values);
+        System.out.println(distances);
 
 
         Map<Integer, Long> tourFrequency =
@@ -143,8 +174,8 @@ public class CoordinateController {
         model.addAttribute("tournament", tournament);
         model.addAttribute("rouletteTime", rouletteTime);
         model.addAttribute("tourTime", tourTime);
-        model.addAttribute("tournamentKey", tournamentKey);
-        model.addAttribute("tournamentValue", tournamentValue);
+        model.addAttribute("tournamentKey", distances);
+        model.addAttribute("tournamentValue", values);
         model.addAttribute("rouletteKey", rouletteKey);
         model.addAttribute("rouletteValue", rouletteValue);
         return "home";
@@ -166,7 +197,7 @@ public class CoordinateController {
                     coordinates.add(List.of(-75.69, 45.38));
                     break;
                 case 3:
-                    coordinates.add(List.of(-122.33, 47.36));
+                    coordinates.add(List.of(-122.33, 47.60));
                     break;
                 case 4:
                     coordinates.add(List.of(-87.62, 41.88));
