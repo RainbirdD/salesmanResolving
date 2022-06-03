@@ -6,7 +6,7 @@ import java.util.List;
 
 @Data
 public class AnnealingDTO {
-    double pos;
+    Integer pos;
     List<Double> generation;
 
 }

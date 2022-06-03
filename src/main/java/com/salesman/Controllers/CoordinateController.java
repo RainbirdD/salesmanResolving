@@ -102,114 +102,57 @@ public class CoordinateController {
         System.out.println(data.size());
 
 
-        model.addAttribute("tournament", data);
-        model.addAttribute("rouletteTime", time);
-        return "home";
-    }
+        List<Integer> collect = data.stream().map(AnnealingDTO::getPos).collect(Collectors.toList());
 
 
+        int gistagrammValue = 8;
 
-    @GetMapping("/home")
-    public String showGraph(Model model) {
+        List<Long> values = new ArrayList<>();
+        List<Integer> distancesFrom = new ArrayList<>();
+        List<Integer> distancesTo = new ArrayList<>();
 
-        System.out.println("Exec");
-        //Towns
-        int numberOfCities = 15;
-        int[][] travelPrices = new int[numberOfCities][numberOfCities];
-        for (int i = 0; i < numberOfCities; i++) {
-            for (int j = 0; j <= i; j++) {
-                Random rand = new Random();
-                if (i == j)
-                    travelPrices[i][j] = 0;
-                else {
-                    travelPrices[i][j] = rand.nextInt(100);
-                    travelPrices[j][i] = travelPrices[i][j];
-                }
+        for (int i = 0; i < gistagrammValue; i++) {
+            long min = Collections.min(collect);
+            int max = Collections.max(collect);
+
+            long delta = (max - min) / gistagrammValue;
+
+            int finalI = i;
+
+
+            if (i < gistagrammValue - 1) {
+                long count = collect.stream()
+                        .filter(v -> v >= min + delta * finalI && v < min + delta * (finalI + 1))
+                        .count();
+                values.add(count);
+            } else {
+                long count = collect.stream()
+                        .filter(v -> v >= min + delta * finalI && v < min + delta * (finalI + 2))
+                        .count();
+                values.add(count);
+            }
+
+
+            if (i < gistagrammValue - 1) {
+                distancesFrom.add((int) (min + delta * finalI));
+                distancesTo.add((int) (min + delta * (finalI + 1)));
+            } else {
+                distancesFrom.add((int) (min + delta * finalI));
+                distancesTo.add((int) (min + delta * (finalI + 2)));
             }
         }
-
-        UberSalesmensch geneticAlgorithmWithRoulette = new UberSalesmensch(numberOfCities, SelectionType.ROULETTE, travelPrices, 0, 0);
-        UberSalesmensch geneticAlgorithmWithTour = new UberSalesmensch(numberOfCities, SelectionType.TOURNAMENT, travelPrices, 0, 0);
-
-        List<GenomeLoop> roulette = new ArrayList<>();
-        List<GenomeLoop> tournament = new ArrayList<>();
-
-        List<Long> rouletteTime = new ArrayList<>();
-        List<Long> tourTime = new ArrayList<>();
-
-
-        //Alg iterations
-        for (int i = 0; i < 10; i++) {
-            StopWatch watch = new StopWatch();
-            watch.start();
-            ResultDTO res = geneticAlgorithmWithRoulette.optimizeAll();
-            var generationRes = res.getGeneration().stream()
-                    .map(SalesmanGenome::getFitness)
-                    .collect(Collectors.toList());
-
-            var coordinates = numsToCoordinates(res.getSalesmanGenome().getGenome());
-
-            Map<Integer, Long> frequency =
-                    generationRes.stream().collect(Collectors.groupingBy(
-                            Function.identity(), Collectors.counting()));
-
-
-            List<Integer> key = frequency.entrySet()
-                    .stream()
-                    .sorted(Comparator.comparing(Map.Entry<Integer, Long>::getValue).reversed())
-                    .map(Map.Entry<Integer, Long>::getKey)
-                    .collect(Collectors.toList());
-
-            List<Long> value = frequency.entrySet()
-                    .stream()
-                    .sorted(Comparator.comparing(Map.Entry<Integer, Long>::getValue).reversed())
-                    .map(Map.Entry<Integer, Long>::getValue)
-                    .collect(Collectors.toList());
+        System.out.println(values);
 
 
 
-            roulette.add(new GenomeLoop(res.getSalesmanGenome().getFitness(), generationRes, key, value, coordinates));
-            watch.stop();
-            rouletteTime.add(watch.getTotalTimeMillis());
-        }
 
 
-        for (int i = 0; i < 10; i++) {
-            StopWatch watch = new StopWatch();
-            watch.start();
-            ResultDTO res = geneticAlgorithmWithTour.optimizeAll();
-            var generationRes = res.getGeneration().stream()
-                    .map(SalesmanGenome::getFitness)
-                    .collect(Collectors.toList());
 
-            var coordinates = numsToCoordinates(res.getSalesmanGenome().getGenome());
-
-            Map<Integer, Long> frequency =
-                    generationRes.stream().collect(Collectors.groupingBy(
-                            Function.identity(), Collectors.counting()));
-
-
-            List<Integer> key = frequency.entrySet()
-                    .stream()
-                    .sorted(Comparator.comparing(Map.Entry<Integer, Long>::getValue).reversed())
-                    .map(Map.Entry<Integer, Long>::getKey)
-                    .collect(Collectors.toList());
-
-            List<Long> value = frequency.entrySet()
-                    .stream()
-                    .sorted(Comparator.comparing(Map.Entry<Integer, Long>::getValue).reversed())
-                    .map(Map.Entry<Integer, Long>::getValue)
-                    .collect(Collectors.toList());
-
-            tournament.add(new GenomeLoop(res.getSalesmanGenome().getFitness(), generationRes, key, value, coordinates));
-            watch.stop();
-            tourTime.add(watch.getTotalTimeMillis());
-        }
-
-        model.addAttribute("roulette", roulette);
-        model.addAttribute("tournament", tournament);
-        model.addAttribute("rouletteTime", rouletteTime);
-        model.addAttribute("tourTime", tourTime);
+        model.addAttribute("tournament", data);
+        model.addAttribute("rouletteTime", time);
+        model.addAttribute("values", values);
+        model.addAttribute("distancesFrom", distancesFrom);
+        model.addAttribute("distancesTo", distancesTo);
         return "home";
     }
 
