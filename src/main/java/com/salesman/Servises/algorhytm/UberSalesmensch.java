@@ -26,19 +26,29 @@ public class UberSalesmensch {
     private int startingCity;
     private int targetFitness;
 
-    public UberSalesmensch(int numberOfCities, SelectionType selectionType, int[][] travelPrices, int startingCity, int targetFitness) {
+
+
+    public UberSalesmensch(int numberOfCities, SelectionType selectionType, int[][] travelPrices, int startingCity,
+                           int targetFitness, int generationSize, int reproductionSize, int maxIterations, float mutationRate, int tournamentSize) {
         this.numberOfCities = numberOfCities;
         this.genomeSize = numberOfCities - 1;
         this.selectionType = selectionType;
         this.travelPrices = travelPrices;
         this.startingCity = startingCity;
         this.targetFitness = targetFitness;
+        this.generationSize = generationSize;
+        this.reproductionSize = reproductionSize;
+        this.maxIterations = maxIterations;
+        this.mutationRate = mutationRate;
+        this.tournamentSize = tournamentSize;
 
-        generationSize = 5000;
-        reproductionSize = 250;
-        maxIterations = 100;
-        mutationRate = 0.1f;
-        tournamentSize = 80;
+
+
+//        generationSize = 5000;
+//        reproductionSize = 250;
+//        maxIterations = 100;
+//        mutationRate = 0.1f;
+//        tournamentSize = 80;
     }
 
     public List<SalesmanGenome> initialPopulation() {

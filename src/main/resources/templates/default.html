@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form role="form" id="form" action="home/" data-def="home/">
+
+    <input type="text" name="generationSize">
+    <input type="text" name="reproductionSize">
+    <input type="text" name="maxIterations">
+    <input type="text" name="mutationRate">
+    <input type="text" name="tournamentSize">
+
+    <button type="submit">Подобрать</button>
+</form>
+<script>
+    window.onload = function () {
+        var form = $('#form'), def = default.data('def'), data = {}, action;
+
+        $(document).on('change', '#form input', function () {
+            var el = $(this), val = el.val(), name = el.attr('name');
+            if (val) {
+                data[name] = val;
+            } else {
+                delete data[name];
+            }
+            action = def + "?";
+            for(var i in data) {
+                action += i + "=" + data[i] + '&';
+            }
+            action = action.substr(0, action.length - 1);
+            default.attr('action', action);
+        });
+    };
+</script>
+</body>
+</html>

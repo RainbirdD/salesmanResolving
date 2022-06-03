@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
 import java.util.function.Function;
@@ -23,11 +24,23 @@ public class CoordinateController {
     private UberSalesmensch uberSalesmensch;
 
 
+    @GetMapping()
+    public String showDefaultPage() {
+        return "default";
+    }
+
+
     @GetMapping("/home")
-    public String showGraph(Model model) {
+    public String showGraph(Model model, @RequestParam(name = "generationSize") Integer generationSize,
+                            @RequestParam(name = "reproductionSize") Integer reproductionSize,
+                            @RequestParam(name = "maxIterations") Integer maxIterations,
+                            @RequestParam(name = "mutationRate") Float mutationRate,
+                            @RequestParam(name = "tournamentSize") Integer tournamentSize) {
+
 
         System.out.println("Exec");
-        //Towns
+
+
         int numberOfCities = 15;
         int gistagrammValue = 8;
 
@@ -50,8 +63,8 @@ public class CoordinateController {
         };
 
 
-        UberSalesmensch geneticAlgorithmWithRoulette = new UberSalesmensch(numberOfCities, SelectionType.ROULETTE, travelPrices, 0, 0);
-        UberSalesmensch geneticAlgorithmWithTour = new UberSalesmensch(numberOfCities, SelectionType.TOURNAMENT, travelPrices, 0, 0);
+        UberSalesmensch geneticAlgorithmWithRoulette = new UberSalesmensch(numberOfCities, SelectionType.ROULETTE, travelPrices, 0, 0, generationSize, reproductionSize, maxIterations, mutationRate, tournamentSize);
+        UberSalesmensch geneticAlgorithmWithTour = new UberSalesmensch(numberOfCities, SelectionType.TOURNAMENT, travelPrices, 0, 0, generationSize, reproductionSize, maxIterations, mutationRate, tournamentSize);
 
         List<GenomeLoop> roulette = new ArrayList<>();
         List<GenomeLoop> tournament = new ArrayList<>();
@@ -135,7 +148,6 @@ public class CoordinateController {
             }
         }
         System.out.println(values);
-
 
 
         Map<Integer, Long> tourFrequency =
