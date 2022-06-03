@@ -39,9 +39,6 @@ public class CoordinateController {
     public String poihali(Model model) throws IOException {
 
 
-
-
-
         List<Long> time = new ArrayList<>();
 
 
