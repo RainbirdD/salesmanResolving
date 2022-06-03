@@ -1612,36 +1612,93 @@
             type: 'column'
         },
         title: {
-            text: 'Tournament productivity gistogramm'
+            text: 'Histogram using a column chart'
+        },
+        subtitle: {
+            text: ''
         },
         xAxis: {
-            categories: [[${tournamentKey}]],
+            categories: [
+                'From ' + [[${tournamentdistancesFrom[0]}]] + ' to ' + [[${tournamentdistancesTo[0]}]],
+                'From ' + [[${tournamentdistancesFrom[1]}]] + ' to ' + [[${tournamentdistancesTo[1]}]],
+                'From ' + [[${tournamentdistancesFrom[2]}]] + ' to ' + [[${tournamentdistancesTo[2]}]],
+                'From ' + [[${tournamentdistancesFrom[3]}]] + ' to ' + [[${tournamentdistancesTo[3]}]],
+                'From ' + [[${tournamentdistancesFrom[4]}]] + ' to ' + [[${tournamentdistancesTo[4]}]],
+                'From ' + [[${tournamentdistancesFrom[5]}]] + ' to ' + [[${tournamentdistancesTo[5]}]],
+                'From ' + [[${tournamentdistancesFrom[6]}]] + ' to ' + [[${tournamentdistancesTo[6]}]],
+                'From ' + [[${tournamentdistancesFrom[7]}]] + ' to ' + [[${tournamentdistancesTo[7]}]]
+            ],
             crosshair: true
         },
         yAxis: {
             min: 0,
             title: {
-                text: 'Distance lenght'
+                text: ''
             }
         },
         tooltip: {
-            // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            //     '<td style="padding:0"><b>{point.y:.1f} values</b></td></tr>',
             footerFormat: '</table>',
             shared: true,
             useHTML: true
         },
         plotOptions: {
             column: {
-                pointPadding: 0.2,
-                borderWidth: 0
+                pointPadding: 0,
+                borderWidth: 0.5,
+                groupPadding: 0,
+                shadow: true
             }
         },
         series: [{
             data: [[${tournamentValue}]]
+
         }]
     });
+
+
+    // Highcharts.chart('graph_info3', {
+    //     chart: {
+    //         type: 'column'
+    //     },
+    //     title: {
+    //         text: 'Tournament productivity gistogramm'
+    //     },
+    //     xAxis: {
+    //         categories: [
+    //             'From ' + [[${tournamentdistancesFrom[0]}]] + ' to ' + [[${tournamentdistancesTo[0]}]],
+    //             'From ' + [[${tournamentdistancesFrom[1]}]] + ' to ' + [[${tournamentdistancesTo[1]}]],
+    //             'From ' + [[${tournamentdistancesFrom[2]}]] + ' to ' + [[${tournamentdistancesTo[2]}]],
+    //             'From ' + [[${tournamentdistancesFrom[3]}]] + ' to ' + [[${tournamentdistancesTo[3]}]],
+    //             'From ' + [[${tournamentdistancesFrom[4]}]] + ' to ' + [[${tournamentdistancesTo[4]}]],
+    //             'From ' + [[${tournamentdistancesFrom[5]}]] + ' to ' + [[${tournamentdistancesTo[5]}]],
+    //             'From ' + [[${tournamentdistancesFrom[6]}]] + ' to ' + [[${tournamentdistancesTo[6]}]],
+    //             'From ' + [[${tournamentdistancesFrom[7]}]] + ' to ' + [[${tournamentdistancesTo[7]}]]
+    //         ],
+    //     },
+    //     yAxis: {
+    //         min: 0,
+    //         title: {
+    //             text: 'Distance lenght'
+    //         }
+    //     },
+    //     tooltip: {
+    //         // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+    //         // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+    //         //     '<td style="padding:0"><b>{point.y:.1f} values</b></td></tr>',
+    //         footerFormat: '</table>',
+    //         shared: true,
+    //         useHTML: true
+    //     },
+    //     plotOptions: {
+    //         column: {
+    //             pointPadding: 0.2,
+    //             borderWidth: 0
+    //         }
+    //     },
+    //     series: [{
+    //         data: [[${tournamentValue}]]
+    //     }]
+    // });
 
     Highcharts.chart('gistagramm2', {
         chart: {

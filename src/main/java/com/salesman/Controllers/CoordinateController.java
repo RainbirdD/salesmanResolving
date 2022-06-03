@@ -32,22 +32,21 @@ public class CoordinateController {
         int gistagrammValue = 8;
 
         int[][] travelPrices = new int[][]{
-                {0, 8938, 5628, 6189, 6604, 7773, 9045, 7442, 7637, 5860, 7850, 7482, 5260, 5775, 7311},
+                {0, 8938, 5631, 7824, 6610, 7762, 9072, 7433, 7715, 5861, 7850, 7482, 4983, 5873, 7311},
                 {8938, 0, 3800, 1507, 2801, 2479, 2002, 3758, 4004, 3610, 5818, 4811, 4155, 3494, 2280},
-                {5628, 3800, 0, 732, 1035, 2147, 3442, 2220, 2626, 331, 3970, 2952, 379, 351, 3315},
-                {6189, 1507, 732, 0, 956, 1627, 2948, 1488, 1893, 447, 3315, 2256, 999, 563, 3945},
-                {6604, 2801, 1035, 956, 0, 1281, 2483, 1913, 2334, 809, 4028, 2920, 1416, 703, 3045},
-                {7773, 2479, 2147, 1627, 1282, 0, 1320, 1286, 1586, 1827, 3438, 2369, 2512, 1802, 3674},
-                {9045, 2002, 3442, 2948, 2483, 1320, 0, 2227, 2311, 3131, 3972, 3097, 3814, 3091, 3947},
-                {7442, 3758, 2220, 1488, 1913, 1286, 2227, 0, 425, 1912, 2198, 1097, 2470, 3703, 4819},
-                {7637, 4004, 2626, 1893, 2334, 1586, 2311, 425, 0, 2143, 1852, 809, 2858, 2406, 5199},
-                {5860, 3610, 331, 447, 809, 1827, 3131, 1912, 2143, 0, 3430, 2419, 714, 549, 4012},
-                {7850, 5818, 3970, 3315, 4028, 3438, 3972, 2198, 1852, 3430, 0, 1114, 4057, 3876, 7012},
-                {7482, 4811, 2952, 2256, 2920, 2369, 3097, 1097, 809, 2419, 1114, 0, 3094, 2816, 5899},
-                {5260, 4155, 379, 999, 1416, 2512, 3814, 2470, 2858, 714, 4057, 3094, 0, 730, 3798},
-                {5775, 3494, 351, 563, 703, 1802, 3091, 3703, 2406, 549, 3876, 2816, 730, 0, 3463},
-                {7311, 2280, 3315, 3945, 3045, 3674, 3947, 4819, 5199, 4012, 7012, 5899, 3798, 3463, 0}
-
+                {5628, 3800, 0, 3523, 1035, 2147, 3442, 2220, 2626, 268, 3970, 2952, 781, 788, 3592},
+                {7824, 1507, 3523, 0, 2788, 3164, 3278, 4378, 4746, 3641, 6590, 5491, 3571, 2768, 735},
+                {6610, 2801, 1035, 2788, 0, 1267, 2483, 1913, 2334, 1145, 4028, 2920, 1623, 853, 3045},
+                {7762, 2479, 2147, 3164, 1267, 0, 1330, 1286, 1586, 1827, 3438, 2369, 2848, 2142, 3674},
+                {9072, 2002, 3442, 3278, 2483, 1320, 0, 2227, 2311, 3298, 3972, 3097, 4113, 3296, 3947},
+                {7433, 3758, 2220, 4378, 1913, 1286, 2227, 0, 425, 1965, 2198, 1097, 2996, 2636, 4819},
+                {7715, 4004, 2626, 4746, 2334, 1586, 2311, 425, 0, 2346, 1852, 809, 3397, 3061, 5199},
+                {5861, 3610, 268, 3641, 1145, 1827, 3298, 1965, 2346, 0, 3707, 2684, 1034, 980, 3759},
+                {7850, 5818, 3970, 6590, 4028, 3438, 3972, 2198, 1852, 3707, 0, 1114, 4636, 4604, 7012},
+                {7482, 4811, 2952, 5491, 2920, 2369, 3097, 1097, 809, 2684, 1114, 0, 3669, 3470, 5899},
+                {4983, 4155, 781, 3571, 1623, 2848, 4113, 2996, 3397, 1034, 4636, 3669, 0, 730, 3470},
+                {5873, 3494, 788, 2768, 853, 2142, 3296, 2636, 3061, 980, 4604, 3470, 730, 0, 2805},
+                {7311, 2280, 3592, 735, 3045, 3674, 3947, 4819, 5199, 3759, 7012, 5899, 3470, 2805, 0}
         };
 
 
@@ -103,7 +102,8 @@ public class CoordinateController {
 
 
         List<Long> values = new ArrayList<>();
-        List<String> distances = new ArrayList<>();
+        List<Integer> distancesFrom = new ArrayList<>();
+        List<Integer> distancesTo = new ArrayList<>();
 
         for (int i = 0; i < gistagrammValue; i++) {
             long min = Collections.min(tourGistogramm);
@@ -113,27 +113,29 @@ public class CoordinateController {
 
             int finalI = i;
 
-            if(i<gistagrammValue-1){
+            if (i < gistagrammValue - 1) {
                 long count = tourGistogramm.stream()
-                        .filter(v -> v >= min + delta * finalI && v < min + delta * (finalI+1))
+                        .filter(v -> v >= min + delta * finalI && v < min + delta * (finalI + 1))
                         .count();
                 values.add(count);
-            }else {
+            } else {
                 long count = tourGistogramm.stream()
-                        .filter(v -> v >= min + delta * finalI && v < min + delta * (finalI+2))
+                        .filter(v -> v >= min + delta * finalI && v < min + delta * (finalI + 2))
                         .count();
                 values.add(count);
             }
 
 
-            if(i<gistagrammValue-1){
-                distances.add("From " + String.valueOf(min + delta * finalI) + " to " + String.valueOf(min + delta * (finalI + 1)));
-            }else {
-                distances.add("From " + String.valueOf(min + delta * finalI) + " to " + String.valueOf(min + delta * (finalI+2)));
+            if (i < gistagrammValue - 1) {
+                distancesFrom.add((int) (min + delta * finalI));
+                distancesTo.add((int) (min + delta * (finalI + 1)));
+            } else {
+                distancesFrom.add((int) (min + delta * finalI));
+                distancesTo.add((int) (min + delta * (finalI + 2)));
             }
         }
         System.out.println(values);
-        System.out.println(distances);
+
 
 
         Map<Integer, Long> tourFrequency =
@@ -174,7 +176,8 @@ public class CoordinateController {
         model.addAttribute("tournament", tournament);
         model.addAttribute("rouletteTime", rouletteTime);
         model.addAttribute("tourTime", tourTime);
-        model.addAttribute("tournamentKey", distances);
+        model.addAttribute("tournamentdistancesFrom", distancesFrom);
+        model.addAttribute("tournamentdistancesTo", distancesTo);
         model.addAttribute("tournamentValue", values);
         model.addAttribute("rouletteKey", rouletteKey);
         model.addAttribute("rouletteValue", rouletteValue);
