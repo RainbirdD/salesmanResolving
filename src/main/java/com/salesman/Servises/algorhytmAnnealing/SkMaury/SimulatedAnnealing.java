@@ -89,7 +89,7 @@ public class SimulatedAnnealing {
 
             bestValue.add(best.getDistance());
         }
-        annealingDTO.setPos(best.getDistance());
+        annealingDTO.setPos((int) best.getDistance());
         annealingDTO.setGeneration(bestValue);
         return annealingDTO;
     }

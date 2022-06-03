@@ -35,6 +35,7 @@
     </div>
 </div>
 
+
 <figure class="highcharts-figure">
     <div id="container" style="width: 1200px; height: 900px;"></div>
     <p class="highcharts-description">
@@ -176,5 +177,54 @@
         ]
     });
 
+
+
+    Highcharts.chart('graph_info3', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Histogram using a column chart'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            categories: [
+                'From ' + [[${distancesFrom[0]}]] + ' to ' + [[${distancesTo[0]}]],
+                'From ' + [[${distancesFrom[1]}]] + ' to ' + [[${distancesTo[1]}]],
+                'From ' + [[${distancesFrom[2]}]] + ' to ' + [[${distancesTo[2]}]],
+                'From ' + [[${distancesFrom[3]}]] + ' to ' + [[${distancesTo[3]}]],
+                'From ' + [[${distancesFrom[4]}]] + ' to ' + [[${distancesTo[4]}]],
+                'From ' + [[${distancesFrom[5]}]] + ' to ' + [[${distancesTo[5]}]],
+                'From ' + [[${distancesFrom[6]}]] + ' to ' + [[${distancesTo[6]}]],
+                'From ' + [[${distancesFrom[7]}]] + ' to ' + [[${distancesTo[7]}]]
+            ],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: ''
+            }
+        },
+        tooltip: {
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0,
+                borderWidth: 0.5,
+                groupPadding: 0,
+                shadow: true
+            }
+        },
+        series: [{
+            data: [[${values}]]
+
+        }]
+    });
 
 </script>
