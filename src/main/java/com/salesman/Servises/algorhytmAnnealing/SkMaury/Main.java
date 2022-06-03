@@ -57,7 +57,8 @@ public class Main {
             System.out.println(kekw.getGeneration());
 
 
+
         System.out.println("Final approximate solution distance is = " + simulatedAnnealing.getBest().getDistance());
-        System.out.println("Tour : " + simulatedAnnealing.getBest());
+        System.out.println("Tour : " + simulatedAnnealing.getCoordinates());
     }
 }

@@ -51,14 +51,34 @@ public class SingleTour {
         return this.tour.size();
     }
 
+//    @Override
+//    public String toString() {
+//        String s = "";
+//        for(int i = 0; i < getTourSize(); ++i){
+//            s += getCity(i) + " -> ";
+//        }
+//        return s;
+//    }
+
     @Override
     public String toString() {
         String s = "";
         for(int i = 0; i < getTourSize(); ++i){
-            s += getCity(i) + " -> ";
+            s += getCity(i);
         }
+        collectCoordinates();
         return s;
     }
+
+    public List<List> collectCoordinates(){
+        List<List> values = new ArrayList<>();
+
+        for(int i = 0; i < getTourSize(); ++i){
+            values.add(List.of(getCity(i).getX(), getCity(i).getY()));
+        }
+        return values;
+    }
+
 
     public double getDistance(){
         if (distance == 0){

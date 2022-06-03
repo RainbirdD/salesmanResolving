@@ -8,5 +8,5 @@ import java.util.List;
 public class AnnealingDTO {
     Integer pos;
     List<Double> generation;
-
+    List<List> coordinates;
 }

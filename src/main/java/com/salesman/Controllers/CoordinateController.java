@@ -1,11 +1,6 @@
 package com.salesman.Controllers;
 
 import com.salesman.Dto.AnnealingDTO;
-import com.salesman.Dto.GenomeLoop;
-import com.salesman.Dto.ResultDTO;
-import com.salesman.Servises.algorhytm.SalesmanGenome;
-import com.salesman.Servises.algorhytm.SelectionType;
-import com.salesman.Servises.algorhytm.UberSalesmensch;
 import com.salesman.Servises.algorhytmAnnealing.SkMaury.City;
 import com.salesman.Servises.algorhytmAnnealing.SkMaury.Repository;
 import com.salesman.Servises.algorhytmAnnealing.SkMaury.SimulatedAnnealing;
@@ -21,11 +16,6 @@ import java.util.stream.Collectors;
 
 @Controller
 public class CoordinateController {
-    @Autowired
-    private SalesmanGenome salesmanGenome;
-    private SelectionType selectionType;
-    private UberSalesmensch uberSalesmensch;
-
 
     @Autowired
     private SimulatedAnnealing simulatedAnnealing;
@@ -101,9 +91,10 @@ public class CoordinateController {
         }
 
         System.out.println(data.size());
+        System.out.println(data.size());
 
 
-        List<Integer> collect = data.stream().map(AnnealingDTO::getPos).collect(Collectors.toList());
+        List<Integer> collect = data.stream().map(AnnealingDTO::getPos).toList();
 
 
         int gistagrammValue = 8;
@@ -143,11 +134,6 @@ public class CoordinateController {
             }
         }
         System.out.println(values);
-
-
-
-
-
 
         model.addAttribute("tournament", data);
         model.addAttribute("rouletteTime", time);

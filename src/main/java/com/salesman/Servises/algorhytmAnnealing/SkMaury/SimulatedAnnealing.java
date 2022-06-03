@@ -15,6 +15,10 @@ public class SimulatedAnnealing {
         return best;
     }
 
+    public List<List> getCoordinates(){
+        return best.collectCoordinates();
+    }
+
     public void simulation(){
 
         double temperature = 100000;
@@ -91,6 +95,7 @@ public class SimulatedAnnealing {
         }
         annealingDTO.setPos((int) best.getDistance());
         annealingDTO.setGeneration(bestValue);
+        annealingDTO.setCoordinates(getCoordinates());
         return annealingDTO;
     }
 
