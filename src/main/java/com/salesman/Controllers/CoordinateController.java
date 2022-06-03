@@ -114,6 +114,7 @@ public class CoordinateController {
                 .collect(Collectors.toList());
 
 
+
         List<Long> values = new ArrayList<>();
         List<Integer> distancesFrom = new ArrayList<>();
         List<Integer> distancesTo = new ArrayList<>();
