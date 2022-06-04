@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Data
@@ -27,7 +29,6 @@ public class UberSalesmensch {
     private int targetFitness;
 
 
-
     public UberSalesmensch(int numberOfCities, SelectionType selectionType, int[][] travelPrices, int startingCity,
                            int targetFitness, int generationSize, int reproductionSize, int maxIterations, float mutationRate, int tournamentSize) {
         this.numberOfCities = numberOfCities;
@@ -41,7 +42,6 @@ public class UberSalesmensch {
         this.maxIterations = maxIterations;
         this.mutationRate = mutationRate;
         this.tournamentSize = tournamentSize;
-
 
 
 //        generationSize = 5000;
@@ -59,7 +59,7 @@ public class UberSalesmensch {
         return population;
     }
 
-    public List<SalesmanGenome> selection(List<SalesmanGenome> population) {
+    public List<SalesmanGenome> selection(List<SalesmanGenome> population) throws Exception {
         List<SalesmanGenome> selected = new ArrayList<>();
         SalesmanGenome winner;
         for (int i = 0; i < reproductionSize; i++) {
@@ -72,20 +72,14 @@ public class UberSalesmensch {
         return selected;
     }
 
-    public SalesmanGenome rouletteSelection(List<SalesmanGenome> population) {
-        int totalFitness = population.stream().map(SalesmanGenome::getFitness).mapToInt(Integer::intValue).sum();
-        Random random = new Random();
-        int selectedValue = random.nextInt(totalFitness);
-        float recValue = (float) 1 / selectedValue;
-        float currentSum = 0;
-        for (SalesmanGenome genome : population) {
-            currentSum += (float) 1 / genome.getFitness();
-            if (currentSum >= recValue) {
-                return genome;
-            }
-        }
-        int selectRandom = random.nextInt(generationSize);
-        return population.get(selectRandom);
+    public SalesmanGenome rouletteSelection(List<SalesmanGenome> population) throws Exception {
+        var n = population.stream().sorted().collect(Collectors.toList());
+
+        var grr = n.subList(0, (int) ((int) n.size()*0.02));
+
+        return grr.stream().findAny()
+                .orElseThrow(() -> new Exception("Out of bounds"));
+
     }
 
     public static <E> List<E> pickNRandomElements(List<E> list, int n) {
@@ -155,20 +149,7 @@ public class UberSalesmensch {
         return children;
     }
 
-//    public SalesmanGenome optimize(){
-//        List<SalesmanGenome> population = initialPopulation();
-//        SalesmanGenome globalBestGenome = population.get(0);
-//        for(int i=0; i<maxIterations; i++){
-//            List<SalesmanGenome> selected = selection(population);
-//            population = createGeneration(selected);
-//            globalBestGenome = Collections.min(population);
-//            if(globalBestGenome.getFitness() < targetFitness)
-//                break;
-//        }
-//        return globalBestGenome;
-//    }
-
-    public ResultDTO optimizeAll() {
+    public ResultDTO optimizeAll() throws Exception {
         List<SalesmanGenome> generation = new ArrayList<>();
         List<SalesmanGenome> population = initialPopulation();
         SalesmanGenome globalBestGenome = population.get(0);
